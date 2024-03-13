@@ -1,7 +1,7 @@
 from POO_Function import joueur
 from POO_Function import monstre
 from POO_Function import actions
-from POO_Function import room
+
 
 player=joueur("myr",50,50,30,30,5,10,["Potion","Potion","Potion"],['Flash','Heal'],['Vamp'],[],30,0, 1,)
 monster=monstre.generation_monster()
