@@ -71,11 +71,11 @@ class monstre:
             armure = random.randint(8, 12)
             exp = random.randint(25, 50)
         
-        # Instancier et retourner un objet monstre avec les caractéristiques déterminées
         return monstre(monster_name, max_hp, max_hp, max_Mana, max_Mana, armure, 10, [], [], [], [], exp)
 
-list_room=[[0, False, False, "premier salle", monstre]]
+list_room=[]
 class room:
+    index=0
     
     def __init__(self,index,coffre,marchant,elements,monstre):
         self.index = index
@@ -85,16 +85,16 @@ class room:
         self.monstre = monstre
 
     @staticmethod
-    def generate_room(self):
-        idList=self.index
-        index_room = idList(list_room)
-        index=index+1
+    def generate_room():
+        index=room.index
         coffre_present = random.choice([True, False])
         marchand_present = random.choice([True, False])
+        elements = random.choice(list_decor)
         monstre_inst = monstre.generation_monster()
-        description = random.choice(list_decor)
-
-        return room(index, coffre_present, marchand_present, description, monstre_inst)
+        room.index += 1
+        new_room =room(index, coffre_present, marchand_present, elements, monstre_inst)
+        list_room.append(new_room)
+        return new_room
         
 
 
@@ -150,15 +150,19 @@ class actions:
             print('Raté')
 
 
-    def exploration(self,current_room):
+    def exploration(self,):
         print("Exploration d'une nouvelle salle ? oui/non")
         choix = input().lower()
         if choix == "oui":
+            current_room = room.generate_room()
             # Génération de la pièce suivante
-            new_room = current_room.generate_room(current_room.index + 1)  
-            print(f"Salle actuelle : {new_room.index}")
-            print(f"Description de la pièce : {new_room.elements}")
-            print(f"Un monstre apparaît : {new_room.monstre.name}")
+            print(f"Salle actuelle : {current_room.index}")
+            if(current_room.marchant == True):
+                print("un marchant se trouve dans la salle")
+            if(current_room.coffre == True):
+                print("un marchant se trouve dans la salle")
+            print(f"Description de la pièce : {current_room.elements}")
+            print(f"Un monstre apparaît : {current_room.monstre.name}")
 
     
 
